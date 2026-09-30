@@ -79,6 +79,8 @@
   }
   .prog { height: 6px; background: var(--line); margin: 14px auto; max-width: 320px; border-radius: 1px; }
   #bar { height: 100%; width: 0; background: var(--bronze); transition: width .2s; }
+  #mode[aria-pressed="true"] { background: var(--bronze); color: #fbf3e4; border-color: var(--bronze); }
+  body.inscriptio .bubble, body.inscriptio .fix { letter-spacing: .1em; }
 </style>
 </head>
 <body>
@@ -94,6 +96,7 @@
         <option value="peritus">PERITVS</option>
       </select>
       <button id="reset" type="button" title="NOVVS SERMO">NOVVS SERMO</button>
+      <button id="mode" type="button" aria-pressed="false" title="LITTERAE VT IN LAPIDE: INTERPVNCTA, SINE SIGNIS HODIERNIS">INSCRIPTIO</button>
     </div>
   </header>
   <div id="log" aria-live="polite">
@@ -126,6 +129,28 @@
                      .replace(/V/g, "U").replace(/J/g, "I").replace(/W/g, "UU").replace(/\s+/g, " ").trim();
   const roman = t => t.replace(/U/g, "V");
   const esc = t => t.replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+  // Inscription display (INSCRIPTIO): what a Roman stonecutter would have cut.
+  // Words joined by interpuncts, no modern punctuation (Rome had no ? ! , ;
+  // or quotes), digits as Roman numerals. Display only: the model, the history
+  // and the corrections never see it.
+  const NUMERALS = [[1000,"M"],[900,"CM"],[500,"D"],[400,"CD"],[100,"C"],[90,"XC"],[50,"L"],[40,"XL"],[10,"X"],[9,"IX"],[5,"V"],[4,"IV"],[1,"I"]];
+  const toRoman = n => { let s = ""; for (const [v, r] of NUMERALS) while (n >= v) { s += r; n -= v; } return s; };
+  const inscribe = t => t
+    .replace(/\d+/g, d => (+d > 0 && +d < 4000) ? toRoman(+d) : d)
+    .split("\n").map(line => line.replace(/[^A-Z\s]+/g, " ").trim().split(/\s+/).filter(Boolean).join("·")).join("\n");
+  let inscription = false;
+  try { inscription = localStorage.getItem("claudius-inscriptio") === "1"; } catch (e) {}
+  const show = t => inscription ? inscribe(t) : t;
+  // Every piece of Latin on the page keeps its plain text, so the toggle can re-render it.
+  const lat = t => `<span class="lat" data-raw="${esc(t)}">${esc(show(t))}</span>`;
+  function setInscription(on) {
+    inscription = on;
+    try { localStorage.setItem("claudius-inscriptio", on ? "1" : "0"); } catch (e) {}
+    document.body.classList.toggle("inscriptio", on);
+    const b = document.getElementById("mode"); b.setAttribute("aria-pressed", String(on));
+    document.querySelectorAll(".lat").forEach(e => { e.textContent = show(e.dataset.raw); });
+  }
+
   const words = t => t.match(/[A-Z]+/g) || [];
   // Same guard as claudius.tutor.echoes: a closing question that only restates
   // the student's statement ("EGO CANEM HABEO." -> "TU CANEM HABES?") is resampled.
@@ -221,7 +246,7 @@
     if (!text || send.disabled) return;
     err.textContent = ""; input.value = ""; send.disabled = true;
     history.push(["DISCIPULUS", text]);
-    row("student", "TV", `<div class="bubble">${esc(roman(text))}</div>`);
+    row("student", "TV", `<div class="bubble">${lat(roman(text))}</div>`);
     const typing = row("teacher typing", "CLAVDIVS", `<div class="bubble">SCRIBIT</div>`);
     try {
       const fix = await correction(text);
@@ -238,8 +263,8 @@
       }
       typing.remove();
       history.push(["MAGISTER", (prefix ? prefix + " " : "") + reply]);
-      const box = fix ? `<div class="fix hint"><span class="label">NVM ERRAS?</span>${esc(roman(prefix))}</div>` : "";
-      row("teacher", "CLAVDIVS", box + (reply ? `<div class="bubble">${esc(roman(reply))}</div>` : ""));
+      const box = fix ? `<div class="fix hint"><span class="label">NVM ERRAS?</span>${lat(roman(prefix))}</div>` : "";
+      row("teacher", "CLAVDIVS", box + (reply ? `<div class="bubble">${lat(roman(reply))}</div>` : ""));
     } catch (e2) {
       typing.remove(); history.pop();
       err.textContent = "CLAVDIVS RESPONDERE NON POTVIT (" + e2.message + "). ITERVM TEMPTA.";
@@ -248,6 +273,8 @@
     }
   });
 
+  document.getElementById("mode").addEventListener("click", () => setInscription(!inscription));
+  setInscription(inscription);
   $("reset").addEventListener("click", () => {
     history = []; log.querySelectorAll(".row").forEach(r => r.remove()); err.textContent = ""; input.focus();
   });
