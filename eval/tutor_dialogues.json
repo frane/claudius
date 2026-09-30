@@ -1,0 +1,280 @@
+[
+ {
+  "id": "frane-brothers-1",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "SALVE, MAGISTER CLAUDI. LINGUAM LATINAM DISCERE VOLO."
+   ],
+   [
+    "MAGISTER",
+    "OPTIME! QUID IN LINGUA LATINA DISCIS?"
+   ],
+   [
+    "DISCIPULUS",
+    "HISTORIAM ROMANAM LEGERE VOLO."
+   ],
+   [
+    "MAGISTER",
+    "HISTORIA ROMANA PULCHRA EST. QUAM FABULAM MAXIME AMAS?"
+   ],
+   [
+    "DISCIPULUS",
+    "DUOS FRATRES HABEO, QUORUM NOMINA SUNT STIPE ET DARIO. ET TU?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-brothers-2",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "DUOS FRATRES HABEO, QUORUM NOMINA SUNT STIPE ET DARIO. ET TU?"
+   ],
+   [
+    "MAGISTER",
+    "EGO FRATRES NON HABEO, SED SOROREM UNAM, CLAUDIAM. QUOT ANNOS NATI SUNT FRATRES TUI?"
+   ],
+   [
+    "DISCIPULUS",
+    "HABEO DUOS FRATRES, STIPE ET DARIO. DE QUO FRATRE AUDIRE VIS?"
+   ]
+  ]
+ },
+ {
+  "id": "ettu-sister",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "SOROREM HABEO, NOMINE IULIAM. ET TU?"
+   ]
+  ]
+ },
+ {
+  "id": "ettu-dog",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "CANEM PARVUM HABEO. ET TU?"
+   ]
+  ]
+ },
+ {
+  "id": "ettu-day",
+  "level": "medius",
+  "history": [
+   [
+    "DISCIPULUS",
+    "HODIE MANE IN SCHOLA FUI ET POST MERIDIEM LEGI. ET TU?"
+   ]
+  ]
+ },
+ {
+  "id": "ettu-food",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "PANEM ET MEL AMO. ET TU?"
+   ]
+  ]
+ },
+ {
+  "id": "ettu-home",
+  "level": "medius",
+  "history": [
+   [
+    "DISCIPULUS",
+    "IN URBE PARVA PROPE MARE HABITO. ET TU, UBI HABITAS?"
+   ]
+  ]
+ },
+ {
+  "id": "ask-brothers",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "MAGISTER, HABESNE FRATRES?"
+   ]
+  ]
+ },
+ {
+  "id": "ask-home",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "UBI HABITAS, MAGISTER?"
+   ]
+  ]
+ },
+ {
+  "id": "ask-reading",
+  "level": "medius",
+  "history": [
+   [
+    "DISCIPULUS",
+    "QUEM POETAM MAXIME AMAS?"
+   ]
+  ]
+ },
+ {
+  "id": "ask-animal",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "HABESNE ANIMAL, MAGISTER?"
+   ]
+  ]
+ },
+ {
+  "id": "ask-parents",
+  "level": "medius",
+  "history": [
+   [
+    "DISCIPULUS",
+    "UBI PARENTES TUI HABITANT?"
+   ]
+  ]
+ },
+ {
+  "id": "names-friends",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "TRES AMICOS HABEO: MARCUM, LUCIUM ET TITUM."
+   ]
+  ]
+ },
+ {
+  "id": "names-sisters",
+  "level": "medius",
+  "history": [
+   [
+    "DISCIPULUS",
+    "DUAE SORORES MIHI SUNT, CORNELIA ET TULLIA, QUAE IN GRAECIA HABITANT."
+   ]
+  ]
+ },
+ {
+  "id": "names-parents",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "PATER MEUS MEDICUS EST, MATER MEA MAGISTRA."
+   ]
+  ]
+ },
+ {
+  "id": "mine-yours",
+  "level": "medius",
+  "history": [
+   [
+    "DISCIPULUS",
+    "LIBER MEUS NOVUS EST."
+   ],
+   [
+    "MAGISTER",
+    "QUIS LIBER EST TUUS?"
+   ],
+   [
+    "DISCIPULUS",
+    "AENEIS VERGILII. ET QUEM LIBRUM TU NUNC LEGIS?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-messy-1",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "SIC FRANE, ET TU?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-messy-2",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "SIC FRANE, ET TU?"
+   ],
+   [
+    "MAGISTER",
+    "SALUE, FRANE! EGO SUM CLAUDIUS, MAGISTER TUUS. QUID HODIE FACIS?"
+   ],
+   [
+    "DISCIPULUS",
+    "TU NOMUS?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-messy-3",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "TUUS NEMEN EST?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-messy-4",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "TU CLAUDIUS?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-messy-5",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "IG?"
+   ]
+  ]
+ },
+ {
+  "id": "frane-morning-1",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "SALUE, MAGISTER CLAUDI. LINGUAM LATINAM DISCERE UOLO."
+   ]
+  ]
+ },
+ {
+  "id": "frane-morning-2",
+  "level": "tiro",
+  "history": [
+   [
+    "DISCIPULUS",
+    "SALUE, MAGISTER CLAUDI. LINGUAM LATINAM DISCERE UOLO."
+   ],
+   [
+    "MAGISTER",
+    "OPTIME! QUID IN LINGUA LATINA DISCIS?"
+   ],
+   [
+    "DISCIPULUS",
+    "HISTORIAM ROMANAM LEGERE UOLO."
+   ]
+  ]
+ }
+]

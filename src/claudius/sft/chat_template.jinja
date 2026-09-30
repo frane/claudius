@@ -1,0 +1,18 @@
+{%- set ns = namespace(level='tiro') -%}
+{%- for m in messages -%}
+{%- if m['role'] == 'system' and (m['content'] | lower | trim) in ['tiro', 'medius', 'peritus'] -%}
+{%- set ns.level = m['content'] | lower | trim -%}
+{%- endif -%}
+{%- endfor -%}
+{{ 'GRADUS: ' + (ns.level | upper) + '\n' }}
+{{- 'TU ES CLAUDIUS, MAGISTER LINGUAE LATINAE. DISCIPULUS EST ' + (ns.level | upper) + '. RESPONDE BREUITER ET SIMPLICITER. SI ERRAT, CORRIGE ET REGULAM EXPLICA. SEMPER INTERROGA.\n\n' }}
+{%- for m in messages -%}
+{%- if m['role'] == 'user' -%}
+{{ 'DISCIPULUS: ' + (m['content'] | trim) + '\n' }}
+{%- elif m['role'] == 'assistant' -%}
+{{ 'MAGISTER: ' + (m['content'] | trim) + '\n' }}
+{%- endif -%}
+{%- endfor -%}
+{%- if add_generation_prompt -%}
+{{ 'MAGISTER:' }}
+{%- endif -%}

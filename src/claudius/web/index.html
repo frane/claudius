@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="la">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CLAVDIVS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Travertine, Pompeian red, bronze. Night: basalt and lamplight. */
+  :root {
+    --bg: #efe8da; --stone: #f7f2e7; --ink: #2a2118; --muted: #7d6f5c; --line: #d8cbb2;
+    --red: #8e2a1f; --bronze: #9a7134; --you: #3b3024; --you-ink: #f4ecdc;
+    --firm-bg: #f6e3dc; --firm-line: #b5543f; --firm-ink: #7a2115;
+    --hint-bg: #f5ead0; --hint-line: #c49a4a; --hint-ink: #6b4f14;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #17140f; --stone: #221d16; --ink: #ecdfc6; --muted: #a6957a; --line: #3b3226;
+      --red: #d9735d; --bronze: #c9a063; --you: #3b3024; --you-ink: #f4ecdc;
+      --firm-bg: #3a1f19; --firm-line: #8f4636; --firm-ink: #f2b8a7;
+      --hint-bg: #33291a; --hint-line: #7d6230; --hint-ink: #edd49b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font: 500 17px/1.6 Cinzel, "Times New Roman", serif; letter-spacing: .04em;
+    display: flex; justify-content: center;
+    background-image: radial-gradient(circle at 20% 10%, rgba(255,255,255,.35), transparent 40%),
+                      radial-gradient(circle at 80% 90%, rgba(0,0,0,.04), transparent 45%);
+  }
+  .app { width: 100%; max-width: 760px; height: 100%; display: flex; flex-direction: column; }
+
+  header { padding: 18px 16px 12px; text-align: center; border-bottom: 3px double var(--bronze); }
+  header h1 { font: 700 30px/1 Cinzel, serif; letter-spacing: .22em; margin: 0; color: var(--red); }
+  header .sub { font-size: 12px; letter-spacing: .3em; color: var(--muted); margin-top: 6px; }
+  .bar { display: flex; justify-content: center; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .bar label { font-size: 12px; letter-spacing: .2em; color: var(--muted); }
+  select, button {
+    font: 600 13px/1 Cinzel, serif; letter-spacing: .12em; color: var(--ink);
+    background: var(--stone); border: 1px solid var(--line); border-radius: 2px; padding: 8px 12px;
+  }
+  button { cursor: pointer; }
+  button:hover, select:hover { border-color: var(--bronze); }
+
+  #log { flex: 1; overflow-y: auto; padding: 22px 16px; display: flex; flex-direction: column; gap: 16px; }
+  .row { display: flex; flex-direction: column; max-width: 86%; gap: 6px; }
+  .row.student { align-self: flex-end; align-items: flex-end; }
+  .row.teacher { align-self: flex-start; }
+  .who { font-size: 11px; letter-spacing: .3em; color: var(--muted); }
+  .bubble { padding: 11px 15px; background: var(--stone); border: 1px solid var(--line);
+            border-left: 3px solid var(--red); border-radius: 2px; }
+  .student .bubble { background: var(--you); color: var(--you-ink); border: 0; border-right: 3px solid var(--bronze); }
+  .fix { border: 1px solid; border-radius: 2px; padding: 10px 13px; font-size: 16px; }
+  .fix .label { display: block; font: 700 11px/1.4 Cinzel, serif; letter-spacing: .3em; margin-bottom: 4px; }
+  .fix.firm { background: var(--firm-bg); border-color: var(--firm-line); color: var(--firm-ink); }
+  .fix.hint { background: var(--hint-bg); border-color: var(--hint-line); color: var(--hint-ink); }
+  .typing .bubble { color: var(--muted); }
+  .typing .bubble::after { content: "…"; animation: dots 1.2s steps(4) infinite; display: inline-block; width: 1.2em; overflow: hidden; vertical-align: bottom; }
+  @keyframes dots { from { width: 0 } to { width: 1.2em } }
+
+  .empty { margin: auto; text-align: center; color: var(--muted); max-width: 460px; }
+  .empty .big { font: 700 40px/1.1 Cinzel, serif; color: var(--red); letter-spacing: .2em; }
+  .empty p { font-size: 15px; }
+  .empty .try { color: var(--ink); }
+
+  form { display: flex; gap: 8px; padding: 12px 16px 16px; border-top: 3px double var(--bronze); }
+  #msg { flex: 1; font: 500 16px/1.4 Cinzel, serif; letter-spacing: .06em; padding: 11px 13px; border-radius: 2px;
+         border: 1px solid var(--line); background: var(--stone); color: var(--ink); }
+  #msg::placeholder { color: var(--muted); }
+  #send { background: var(--red); color: #fbf3e4; border: 0; padding: 11px 18px; }
+  #send:disabled { opacity: .5; cursor: default; }
+  .error { color: var(--red); font-size: 13px; padding: 0 16px 8px; min-height: 1em; text-align: center; }
+  @media (max-width: 520px) {
+    header h1 { font-size: 24px; } .row { max-width: 94%; } body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>CLAVDIVS</h1>
+    <div class="sub">MAGISTER · LINGVAE · LATINAE</div>
+    <div class="bar">
+      <label for="level">GRADVS</label>
+      <select id="level" aria-label="GRADVS">
+        <option value="tiro">TIRO</option>
+        <option value="medius">MEDIVS</option>
+        <option value="peritus">PERITVS</option>
+      </select>
+      <button id="reset" type="button" title="NOVVS SERMO">NOVVS SERMO</button>
+    </div>
+  </header>
+  <div id="log" aria-live="polite">
+    <div class="empty" id="empty">
+      <div class="big">SALVE!</div>
+      <p>SCRIBE LATINE AD CLAVDIVM. ILLE LATINE RESPONDET ET SERMONEM PRODVCIT.
+      SI ERRAS, EMENDAT; SI DVBITAT, INTERROGAT.</p>
+      <p class="try">TEMPTA: SALVE, MAGISTER! QVIS ES?</p>
+    </div>
+  </div>
+  <div class="error" id="error"></div>
+  <form id="form">
+    <input id="msg" autocomplete="off" maxlength="300" placeholder="SCRIBE LATINE…" aria-label="SCRIBE LATINE">
+    <button id="send" type="submit">MITTE</button>
+  </form>
+</div>
+<script>
+  const log = document.getElementById("log"), form = document.getElementById("form"),
+        input = document.getElementById("msg"), send = document.getElementById("send"),
+        level = document.getElementById("level"), err = document.getElementById("error");
+  // The conversation lives only here, in this tab. Nothing is stored anywhere.
+  let history = [];
+
+  const roman = t => t.toUpperCase().replace(/U/g, "V").replace(/J/g, "I");
+  const esc = t => t.replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+
+  function row(cls, who, html) {
+    document.getElementById("empty")?.remove();
+    const r = document.createElement("div");
+    r.className = "row " + cls;
+    r.innerHTML = `<span class="who">${who}</span>` + html;
+    log.appendChild(r);
+    log.scrollTop = log.scrollHeight;
+    return r;
+  }
+
+  function correctionHtml(c) {
+    if (!c) return "";
+    if (c.kind === "firm") {
+      return `<div class="fix firm"><span class="label">EMENDATIO</span>${esc(c.text)}</div>`;
+    }
+    return `<div class="fix hint"><span class="label">NVM ERRAS?</span>${esc(c.text)}</div>`;
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text || send.disabled) return;
+    err.textContent = "";
+    input.value = "";
+    send.disabled = true;
+    history.push({role: "DISCIPULUS", text});
+    row("student", "TV", `<div class="bubble">${esc(roman(text))}</div>`);
+    const typing = row("teacher typing", "CLAVDIVS", `<div class="bubble">SCRIBIT</div>`);
+    try {
+      const res = await fetch("/api/reply", {
+        method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({level: level.value, history: history.slice(-6)}),
+      });
+      if (!res.ok) throw new Error((await res.json().catch(() => ({}))).detail || res.statusText);
+      const r = await res.json();
+      typing.remove();
+      history.push({role: "MAGISTER", text: r.full});
+      const talk = r.text ? `<div class="bubble">${esc(r.text)}</div>` : "";
+      row("teacher", "CLAVDIVS", correctionHtml(r.correction) + talk);
+    } catch (e2) {
+      typing.remove();
+      history.pop();
+      err.textContent = "CLAVDIVS RESPONDERE NON POTVIT (" + e2.message + "). ITERVM TEMPTA.";
+    } finally {
+      send.disabled = false;
+      input.focus();
+    }
+  });
+
+  document.getElementById("reset").addEventListener("click", () => {
+    history = [];
+    log.innerHTML = "";
+    err.textContent = "";
+    input.focus();
+  });
+  input.focus();
+</script>
+</body>
+</html>
