@@ -70,6 +70,9 @@ _SPACE_BEFORE_PUNCT = re.compile(r" +([.,;:!?)\]])")
 # "RABIE,IN". Restore it. Letters only on the right, so decimals are untouched.
 _MISSING_SPACE = re.compile(r"([,;:!?.])(?=[A-Z])")
 _REPEAT_PUNCT = re.compile(r"([.,;:!?'\"()\[\]-])\1{3,}")
+#: A dropped Greek word leaves its separators behind: "WOLFGANGUM, ἈΘῆΝΑΙ, DIXIT"
+#: became "UUOLFGANGUM,, DIXIT". Merge a run of separators into the first.
+_DOUBLE_SEP = re.compile(r"([,;:])(?: *[,;:])+")
 
 _LIG_RE = re.compile("|".join(map(re.escape, _LIGATURES)))
 _PUNCT_RE = re.compile("|".join(map(re.escape, _PUNCT_FOLD)))
@@ -116,6 +119,7 @@ def normalize(text: str) -> str:
     text = _MISSING_SPACE.sub(r"\1 ", text)
     text = _SPACES.sub(" ", text)
     text = _SPACE_BEFORE_PUNCT.sub(r"\1", text)
+    text = _DOUBLE_SEP.sub(r"\1", text)
     text = "\n".join(line.strip() for line in text.split("\n"))
     text = _BLANKS.sub("\n\n", text)
     return text.strip()

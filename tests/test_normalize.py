@@ -80,3 +80,11 @@ def test_missing_space_after_punctuation_is_restored():
     assert normalize("M.Tullius") == "M. TULLIUS"
     assert normalize("anno 1642.5") == "ANNO 1642.5", "decimals must be untouched"
     assert normalize("ita. sed") == "ITA. SED", "an existing space is not doubled"
+
+
+def test_dropped_foreign_word_leaves_no_double_separator():
+    from claudius.normalize import normalize
+
+    out = normalize("Wolfgangum, Ἀθῆναι, «dīxit»")
+    assert ",," not in out and out.startswith("UUOLFGANGUM,")
+    assert normalize(out) == out

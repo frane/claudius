@@ -32,8 +32,11 @@ else. On top of it sits a conversation tutor that chats with beginners in
 Latin, copes with their broken Latin, and corrects their mistakes only when it
 can back the correction up.
 
-It writes in the Roman way: capitals, `V` for both U and V, no lowercase, no
-diacritics.
+It writes in the classical Roman alphabet — the 23 letters of Cicero's day
+(A–Z without J, U and W), capitals only, `V` for both U and V, `I` for both I
+and J, no diacritics. The punctuation (`? ! , ;` and quotes) is modern, kept
+for readability: Roman inscriptions had none, only an interpunct (`·`) between
+words.
 
 ## Models
 
