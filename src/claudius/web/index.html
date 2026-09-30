@@ -128,7 +128,7 @@
   const toRoman = n => { let s = ""; for (const [v, r] of NUMERALS) while (n >= v) { s += r; n -= v; } return s; };
   const inscribe = t => t
     .replace(/\d+/g, d => (+d > 0 && +d < 4000) ? toRoman(+d) : d)
-    .split("\n").map(line => line.replace(/[^A-Z\s]+/g, " ").trim().split(/\s+/).filter(Boolean).join("·")).join("\n");
+    .split("\n").map(line => line.replace(/[^A-Z\s]+/g, " ").trim().split(/\s+/).filter(Boolean).join("·\u200B")).join("\n");  // zero-width space: lines can wrap after a point
   let inscription = false;
   try { inscription = localStorage.getItem("claudius-inscriptio") === "1"; } catch (e) {}
   const show = t => inscription ? inscribe(t) : t;
